@@ -24,13 +24,8 @@ public class RunTime extends Thread implements Constants {
 
 			long time = System.currentTimeMillis();
 
-			while (System.currentTimeMillis() < time + (long) (DELAY_DEFAULT/SPEED_MULTIPLIERS[GAME_STATUS.getSpeedMultiplierIndex()])) {
-					RENDERER.repaint();
-				try {
-					Thread.sleep(1);
-					//it tells me busy waiting but if I don't leave this here, things explode if you scroll up the speed
-				}
-				catch (InterruptedException ignored) {}
+			while (System.currentTimeMillis() < time + (long) (DELAY_DEFAULT / SPEED_MULTIPLIERS[GAME_STATUS.getSpeedMultiplierIndex()])) {
+				RENDERER.repaint();
 			}
 		}
 

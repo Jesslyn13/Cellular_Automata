@@ -24,10 +24,15 @@ public class GameStatus implements Constants {
 
 	public void scroll(int direction) {
 		lastSpeedChangeTime = System.currentTimeMillis();
-		speedMultiplierIndex -= direction;
 
-		speedMultiplierIndex = Math.min(speedMultiplierIndex, SPEED_MULTIPLIERS.length - 1);
-		speedMultiplierIndex = Math.max(speedMultiplierIndex, 0);
+		//turns out we can't immediately modify lastSpeedChangeTime here because it causes desync issues when scrolling too much and we get index out of bounds.
+		int newSpeedMultiplierIndex = speedMultiplierIndex;
+		newSpeedMultiplierIndex -= direction;
+		newSpeedMultiplierIndex = Math.min(newSpeedMultiplierIndex, SPEED_MULTIPLIERS.length - 1);
+		newSpeedMultiplierIndex = Math.max(newSpeedMultiplierIndex, 0);
+
+
+		speedMultiplierIndex = newSpeedMultiplierIndex;
 	}
 
 	public void setMouseClicked(boolean mouseClicked, int xCoordinate, int yCoordinate, boolean updateMousePosition) {
