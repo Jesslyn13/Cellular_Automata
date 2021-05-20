@@ -13,9 +13,8 @@ public interface Constants {
 	int LANGTONS_ANT = 3;
 	int FLOOD = 4;
 
-
-	boolean ANT_RETURNS_HOME = true;
 	int AUTOMATON_CHOICE = FLOOD;
+	boolean ANT_RETURNS_HOME = true;
 
 
 	//Resolution and Size--------------------------------------------------------------------------------
