@@ -19,8 +19,9 @@ public class RunTime extends Thread implements Constants {
 
 		while (true) {
 			if (!GAME_STATUS.isPaused()) {
-				//GAME_LOGIC.generateNextMatrix();
-				GAME_LOGIC.nextStep();
+				//GAME_LOGIC.nextStep();
+				//GAME_LOGIC.waterStep();
+				GAME_LOGIC.briansBrainStep();
 
 			}
 

@@ -8,7 +8,7 @@ import java.io.IOException;
 public class Renderer extends JPanel implements Constants {
 	private Color[] theme;
 	private boolean hideGraphics = false;
-	private RenderingHints qualityHints;
+	private final RenderingHints qualityHints;
 
 	public Renderer(Color[] theme) {
 		this.theme=theme;
