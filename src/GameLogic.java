@@ -260,7 +260,8 @@ public class GameLogic implements Constants {
 	public void generateRandomMatrix(double[] chances) {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				setTile(x, y, getArrayIndexByChanceArray(chances));
+				GAME_STATUS.setBrushIndex(getArrayIndexByChanceArray(chances));
+				paintTile(x, y);
 				//This works because array indices are the same as the according cell states
 			}
 		}
@@ -353,8 +354,6 @@ public class GameLogic implements Constants {
 	public void waterStep() {
 		final int STATE_DRY = 0;
 		final int STATE_WET = 2;
-
-		matrix[width / 2][height / 2] = STATE_WET;
 
 		int[][] wetNeighboursArray = getNeumannNeighbours(STATE_WET);
 
@@ -476,7 +475,25 @@ public class GameLogic implements Constants {
 		return height;
 	}
 
-	public void setTile(int x, int y, int state) {
+	public void paintTile(int x, int y) {
+		int state = GAME_STATUS.getBrushIndex();
+		try {
+			matrix[x][y] = state;
+			if (MIRROR_MATRIX_VERTICAL) {
+				matrix[width - 1 - x][y] = state;
+			}
+			if (MIRROR_MATRIX_HORIZONTAL) {
+				matrix[x][height - 1 - y] = state;
+			}
+			if (MIRROR_MATRIX_HORIZONTAL && MIRROR_MATRIX_VERTICAL) {
+				matrix[width - 1 - x][height - 1 - y] = state;
+			}
+		} catch (ArrayIndexOutOfBoundsException ignored) {
+		}
+	}
+
+	public void eraseTile(int x, int y) {
+		int state = 0;
 		try {
 			matrix[x][y] = state;
 			if (MIRROR_MATRIX_VERTICAL) {

@@ -62,8 +62,15 @@ public class Renderer extends JPanel implements Constants {
 				else {
 					g.drawString(multiplier + "x", 20, 40);
 				}
-
 			}
+
+			if(GAME_STATUS.getTimeSinceLastBrushChange() < BRUSH_FADE_DELAY) {
+				g.setColor(theme[GAME_STATUS.getBrushIndex()]);
+				g.fillRect(Constants.WIDTH/2*CELL_SIZE, 20, 20, 20);
+			}
+
+
+
 		}
 		else {
 			g.setColor(Color.BLACK);

@@ -13,17 +13,17 @@ public interface Constants {
 	int LANGTONS_ANT = 3;
 	int FLOOD = 4;
 
-	int AUTOMATON_CHOICE = BRIANS_BRAIN;
+	int AUTOMATON_CHOICE = FLOOD;
 	boolean ANT_RETURNS_HOME = true;
 
 
 	//Resolution and Size--------------------------------------------------------------------------------
 
-
-	int CELL_SIZE = 2;
+	int BRUSH_COUNT = 3;
+	int CELL_SIZE = 5;
 	boolean SCREEN_WRAP = true;
-	boolean MIRROR_MATRIX_VERTICAL = true;
-	boolean MIRROR_MATRIX_HORIZONTAL = true;
+	boolean MIRROR_MATRIX_VERTICAL = false;
+	boolean MIRROR_MATRIX_HORIZONTAL = false;
 
 	int RESOLUTION_X = 1920;
 	int RESOLUTION_Y = 1280;
@@ -50,6 +50,7 @@ public interface Constants {
 	double[] LIVE_CELL_CHANCES = LIVE_CELL_CHANCE_LIST_LANGTONS_ANT;
 
 	long MULTIPLIER_FADE_DELAY = 1000; //delay in ms
+	long BRUSH_FADE_DELAY = 500; //delay in ms
 	int NO_NEIGHBOUR_INDEX = -13; //entirely arbitrary
 
 	int DEFAULT_STATE = 0;
@@ -61,6 +62,14 @@ public interface Constants {
 			Color.black,
 			Color.blue,
 			Color.cyan,
+			Color.green,
+			Color.green,
+	};
+
+	Color[] OKSANAS_GREEN = {
+			Color.black,
+			Color.green,
+			Color.blue.darker(),
 			Color.green,
 			Color.green,
 	};
@@ -90,7 +99,7 @@ public interface Constants {
 	};
 
 
-	Color[][] THEME_LIST = {PRESET_DEFAULT_BLACK_WHITE,PRESET_NIGHT_BLUE,ANT_IN_THE_WOODS,FLOODING_MAZE};
+	Color[][] THEME_LIST = {PRESET_DEFAULT_BLACK_WHITE,PRESET_NIGHT_BLUE,ANT_IN_THE_WOODS,FLOODING_MAZE,OKSANAS_GREEN};
 
 	int ANT_COLOR_INDEX = 4;
 

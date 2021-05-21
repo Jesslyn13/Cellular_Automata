@@ -42,6 +42,8 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 			case (KeyEvent.VK_S) -> RENDERER.takeScreenshot();
 			case (KeyEvent.VK_D) -> RENDERER.toggleHideGraphics();
 			case (KeyEvent.VK_T) -> GAME_STATUS.cycleTheme();
+			case (KeyEvent.VK_PLUS) -> GAME_STATUS.changeSpeedIndex(-1);
+			case (KeyEvent.VK_MINUS) -> GAME_STATUS.changeSpeedIndex(+1);
 		}
 	}
 
@@ -51,19 +53,21 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		GAME_STATUS.setMouseClicked(true,e.getX(),e.getY(),true);
+		GAME_STATUS.updateMousePosition(e.getX(),e.getY());
 		boolean isAlive = !SwingUtilities.isRightMouseButton(e);
 
-		int i=0;
-		if(isAlive) i=1;
-
 		//GAME_LOGIC.setTile(GAME_STATUS.mouseX,GAME_STATUS.mouseY, isAlive);
-		GAME_LOGIC.setTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY(), i);
+		if(isAlive) {
+			GAME_LOGIC.paintTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY());
+		}
+		else {
+			GAME_LOGIC.eraseTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY());
+		}
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		GAME_STATUS.setMouseClicked(false,0,0,false);
+		GAME_STATUS.updateMousePosition(0,0);
 		//the mouse position is not updated because it's not necessary to know the mouse position until a mouse button is pressed again
 
 	}
@@ -80,14 +84,15 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GAME_STATUS.setMouseClicked(true,e.getX(),e.getY(),true);
+		GAME_STATUS.updateMousePosition(e.getX(), e.getY());
 		boolean isAlive = !SwingUtilities.isRightMouseButton(e);
 
-		int i=0;
-		if(isAlive) i=1;
-
-		//GAME_LOGIC.setTile(GAME_STATUS.mouseX,GAME_STATUS.mouseY, isAlive);
-		GAME_LOGIC.setTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY(), i);
+		if (isAlive) {
+			GAME_LOGIC.paintTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
+		}
+		else {
+			GAME_LOGIC.eraseTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
+		}
 	}
 
 	@Override
@@ -97,6 +102,6 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		GAME_STATUS.scroll((int) e.getPreciseWheelRotation());
+		GAME_STATUS.scrollBrushIndex((int) e.getPreciseWheelRotation());
 	}
 }
