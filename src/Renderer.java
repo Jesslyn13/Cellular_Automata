@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Renderer extends JPanel implements Constants {
+public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 	private boolean hideGraphics = false;
 	private final RenderingHints qualityHints;
 

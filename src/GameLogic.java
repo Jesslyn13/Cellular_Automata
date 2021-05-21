@@ -1,11 +1,13 @@
 import java.util.Arrays;
 import java.util.Random;
 
-public class GameLogic implements Constants {
+public class GameLogic implements Constants, AlgorithmDefaults {
 	private final int[][] matrix;
-
 	private final int width;
 	private final int height;
+
+	private double[] liveCellChances ={0.3,0.3,0.3};
+
 
 
 	public GameLogic(int width, int height) {
@@ -14,6 +16,36 @@ public class GameLogic implements Constants {
 
 		matrix = new int[width][height];
 		resetMatrix();
+
+		switch(AUTOMATON_CHOICE) {
+			case CONWAYS_GAME_OF_LIFE -> {
+				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_GAME_OF_LIFE);
+				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_GAME_OF_LIFE);
+				liveCellChances = LIVE_CELL_CHANCES_CONWAY;
+			}
+			case SEEDS -> {
+				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_SEEDS);
+				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_SEEDS);
+				liveCellChances = LIVE_CELL_CHANCES_SEEDS;
+			}
+			case BRIANS_BRAIN -> {
+				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_BRIANS_BRAIN);
+				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_BRIANS_BRAIN);
+				liveCellChances = LIVE_CELL_CHANCES_BRIANS_BRAIN;
+			}
+			case LANGTONS_ANT -> {
+				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_LANGTONS_ANT);
+				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_LANGTONS_ANT);
+				liveCellChances = LIVE_CELL_CHANCES_LANGTONS_ANT;
+			}
+			case FLOOD -> {
+				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_FLOOD);
+				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_FLOOD);
+				liveCellChances = LIVE_CELL_CHANCES_FLOOD;
+			}
+		}
+
+
 	}
 
 	public void resetMatrix() {
@@ -257,10 +289,10 @@ public class GameLogic implements Constants {
 		}
 	}
 
-	public void generateRandomMatrix(double[] chances) {
+	public void generateRandomMatrix() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				GAME_STATUS.setBrushIndex(getArrayIndexByChanceArray(chances));
+				GAME_STATUS.setBrushIndex(getArrayIndexByChanceArray(LIVE_CELL_CHANCES));
 				paintTile(x, y);
 				//This works because array indices are the same as the according cell states
 			}

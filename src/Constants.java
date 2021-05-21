@@ -1,19 +1,13 @@
 import javax.swing.*;
 import java.awt.*;
 
-public interface Constants {
+public interface Constants{
 
 	//-------------------------------------------------------------------------------------------------
 	//Algorithm Choice:--------------------------------------------------------------------------------
 	//-------------------------------------------------------------------------------------------------
 
-	int CONWAYS_GAME_OF_LIFE = 0;
-	int SEEDS = 1;
-	int BRIANS_BRAIN = 2;
-	int LANGTONS_ANT = 3;
-	int FLOOD = 4;
 
-	int AUTOMATON_CHOICE = FLOOD;
 	boolean ANT_RETURNS_HOME = true;
 
 
@@ -42,7 +36,7 @@ public interface Constants {
 
 	//Other--------------------------------------------------------------------------------------------------------
 
-	double[] LIVE_CELL_CHANCE_LIST_CONWAY = {0.5, 0.5};
+	double[] LIVE_CELL_CHANCE_LIST_CONWAY = {0.7, 0.3};
 	double[] LIVE_CELL_CHANCE_LIST_WATER = {0.69, 0.3, 0.01};
 	double[] LIVE_CELL_CHANCE_LIST_LANGTONS_ANT = {0.5, 0.5};
 	double[] LIVE_CELL_CHANCE_LIST_DAY_NIGHT = {0.5, 0.5};
@@ -62,14 +56,6 @@ public interface Constants {
 			Color.black,
 			Color.blue,
 			Color.cyan,
-			Color.green,
-			Color.green,
-	};
-
-	Color[] OKSANAS_GREEN = {
-			Color.black,
-			Color.green,
-			Color.blue.darker(),
 			Color.green,
 			Color.green,
 	};
@@ -98,8 +84,21 @@ public interface Constants {
 			Color.black,
 	};
 
+	Color[] OKSANAS_GREEN = {
+			Color.black,
+			Color.green,
+			Color.blue.darker(),
+			Color.green,
+			Color.green,
+	};
 
-	Color[][] THEME_LIST = {PRESET_DEFAULT_BLACK_WHITE,PRESET_NIGHT_BLUE,ANT_IN_THE_WOODS,FLOODING_MAZE,OKSANAS_GREEN};
+	Color[][] THEME_LIST = {
+			PRESET_DEFAULT_BLACK_WHITE,
+			PRESET_NIGHT_BLUE,
+			ANT_IN_THE_WOODS,
+			FLOODING_MAZE,
+			OKSANAS_GREEN
+	};
 
 	int ANT_COLOR_INDEX = 4;
 
@@ -114,7 +113,6 @@ public interface Constants {
 
 	//Necessary Objects--------------------------------------------------------------------------------------------
 
-	GameLogic GAME_LOGIC = new GameLogic(WIDTH, HEIGHT);
 
 
 	Ant ANT1 = new Ant(FACING_UP);
@@ -129,4 +127,5 @@ public interface Constants {
 	Listener LISTENER = new Listener();
 	JFrame FRAME = new JFrame();
 	Renderer RENDERER = new Renderer();
+	GameLogic GAME_LOGIC = new GameLogic(WIDTH, HEIGHT);
 }

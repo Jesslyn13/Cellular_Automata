@@ -37,7 +37,7 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 				} catch (InterruptedException interruptedException) {
 					interruptedException.printStackTrace();
 				}
-				GAME_LOGIC.generateRandomMatrix(LIVE_CELL_CHANCES);
+				GAME_LOGIC.generateRandomMatrix();
 			}
 			case (KeyEvent.VK_S) -> RENDERER.takeScreenshot();
 			case (KeyEvent.VK_D) -> RENDERER.toggleHideGraphics();

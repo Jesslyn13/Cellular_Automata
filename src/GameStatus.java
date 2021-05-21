@@ -4,10 +4,12 @@ public class GameStatus implements Constants {
 	private boolean isPaused = true;
 	private int currentThemeIndex = 0;
 	private int brushIndex = 1;
+	private int maximumBrushIndex;
 
 	public int speedMultiplierIndex = SPEED_DEFAULT_INDEX;
 	private long lastSpeedChangeTime = MULTIPLIER_FADE_DELAY;
 	private long lastBrushChangeTime = BRUSH_FADE_DELAY;
+
 
 	public int getMouseX() {
 		return mouseX;
@@ -32,7 +34,7 @@ public class GameStatus implements Constants {
 		lastBrushChangeTime = System.currentTimeMillis();
 		int newBrushIndex = brushIndex;
 		newBrushIndex -= direction;
-		newBrushIndex = Math.min(newBrushIndex, BRUSH_COUNT - 1);
+		newBrushIndex = Math.min(newBrushIndex, maximumBrushIndex);
 		newBrushIndex = Math.max(newBrushIndex, 1);
 
 		brushIndex = newBrushIndex;
@@ -81,6 +83,10 @@ public class GameStatus implements Constants {
 	public void setBrushIndex(int brushIndex) {
 		this.brushIndex = brushIndex;
 	}
+	public void setMaximumBrushIndex(int maximumBrushIndex) {
+		this.maximumBrushIndex = maximumBrushIndex;
+	}
+
 
 	public int getBrushIndex() {
 		return brushIndex;
@@ -88,6 +94,10 @@ public class GameStatus implements Constants {
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public void setCurrentThemeIndex(int currentThemeIndex) {
+		this.currentThemeIndex = currentThemeIndex;
 	}
 
 	public int getCurrentThemeIndex() {
