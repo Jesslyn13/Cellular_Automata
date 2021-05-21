@@ -36,8 +36,6 @@ public class GameStatus implements Constants {
 		newBrushIndex -= direction;
 		if (newBrushIndex < 1) newBrushIndex = maximumBrushIndex;
 		else if (newBrushIndex > maximumBrushIndex) newBrushIndex = 1;
-		//newBrushIndex = Math.min(newBrushIndex, maximumBrushIndex);
-		//newBrushIndex = Math.max(newBrushIndex, 1);
 
 		brushIndex = newBrushIndex;
 	}

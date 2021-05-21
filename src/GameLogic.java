@@ -292,7 +292,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 	public void generateRandomMatrix() {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				GAME_STATUS.setBrushIndex(getArrayIndexByChanceArray(LIVE_CELL_CHANCES));
+				GAME_STATUS.setBrushIndex(getArrayIndexByChanceArray(liveCellChances));
 				paintTile(x, y);
 				//This works because array indices are the same as the according cell states
 			}

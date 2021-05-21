@@ -36,13 +36,6 @@ public interface Constants{
 
 	//Other--------------------------------------------------------------------------------------------------------
 
-	double[] LIVE_CELL_CHANCE_LIST_CONWAY = {0.7, 0.3};
-	double[] LIVE_CELL_CHANCE_LIST_WATER = {0.69, 0.3, 0.01};
-	double[] LIVE_CELL_CHANCE_LIST_LANGTONS_ANT = {0.5, 0.5};
-	double[] LIVE_CELL_CHANCE_LIST_DAY_NIGHT = {0.5, 0.5};
-
-	double[] LIVE_CELL_CHANCES = LIVE_CELL_CHANCE_LIST_LANGTONS_ANT;
-
 	long MULTIPLIER_FADE_DELAY = 1000; //delay in ms
 	long BRUSH_FADE_DELAY = 500; //delay in ms
 	int NO_NEIGHBOUR_INDEX = -13; //entirely arbitrary

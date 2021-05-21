@@ -8,7 +8,7 @@ public interface AlgorithmDefaults {
 	int LANGTONS_ANT = 3;
 	int FLOOD = 4;
 
-	int AUTOMATON_CHOICE = FLOOD;
+	int AUTOMATON_CHOICE = CONWAYS_GAME_OF_LIFE;
 
 
 	//Game of Life ------------------------------------------------------------------------------------------------------
