@@ -24,7 +24,7 @@ public class RunTime extends Thread implements Constants {
 
 			long time = System.currentTimeMillis();
 
-			while (System.currentTimeMillis() < time + (long) (DELAY_DEFAULT / SPEED_MULTIPLIERS[GAME_STATUS.getSpeedMultiplierIndex()])) {
+			while (RENDERER.displayEnabled() && System.currentTimeMillis() < time + (long) (DELAY_DEFAULT / SPEED_MULTIPLIERS[GAME_STATUS.getSpeedMultiplierIndex()])) {
 				RENDERER.repaint();
 			}
 		}

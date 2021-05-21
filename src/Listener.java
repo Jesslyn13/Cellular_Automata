@@ -41,6 +41,7 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 			}
 			case (KeyEvent.VK_S) -> RENDERER.takeScreenshot();
 			case (KeyEvent.VK_D) -> RENDERER.toggleHideGraphics();
+			case (KeyEvent.VK_T) -> GAME_STATUS.cycleTheme();
 		}
 	}
 

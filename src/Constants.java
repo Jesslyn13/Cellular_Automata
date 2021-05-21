@@ -13,17 +13,17 @@ public interface Constants {
 	int LANGTONS_ANT = 3;
 	int FLOOD = 4;
 
-	int AUTOMATON_CHOICE = FLOOD;
+	int AUTOMATON_CHOICE = BRIANS_BRAIN;
 	boolean ANT_RETURNS_HOME = true;
 
 
 	//Resolution and Size--------------------------------------------------------------------------------
 
 
-	int CELL_SIZE = 5;
+	int CELL_SIZE = 2;
 	boolean SCREEN_WRAP = true;
-	boolean MIRROR_MATRIX_VERTICAL = false;
-	boolean MIRROR_MATRIX_HORIZONTAL = false;
+	boolean MIRROR_MATRIX_VERTICAL = true;
+	boolean MIRROR_MATRIX_HORIZONTAL = true;
 
 	int RESOLUTION_X = 1920;
 	int RESOLUTION_Y = 1280;
@@ -44,9 +44,10 @@ public interface Constants {
 
 	double[] LIVE_CELL_CHANCE_LIST_CONWAY = {0.5, 0.5};
 	double[] LIVE_CELL_CHANCE_LIST_WATER = {0.69, 0.3, 0.01};
+	double[] LIVE_CELL_CHANCE_LIST_LANGTONS_ANT = {0.5, 0.5};
 	double[] LIVE_CELL_CHANCE_LIST_DAY_NIGHT = {0.5, 0.5};
 
-	double[] LIVE_CELL_CHANCES = LIVE_CELL_CHANCE_LIST_WATER;
+	double[] LIVE_CELL_CHANCES = LIVE_CELL_CHANCE_LIST_LANGTONS_ANT;
 
 	long MULTIPLIER_FADE_DELAY = 1000; //delay in ms
 	int NO_NEIGHBOUR_INDEX = -13; //entirely arbitrary
@@ -81,15 +82,16 @@ public interface Constants {
 	};
 
 	Color[] FLOODING_MAZE = {
-			Color.white,
+			Color.white.darker(),
 			Color.black,
 			Color.blue.darker(),
+			Color.white,
+			Color.black,
 	};
 
 
-	Color[] CURRENT_THEME = FLOODING_MAZE;
+	Color[][] THEME_LIST = {PRESET_DEFAULT_BLACK_WHITE,PRESET_NIGHT_BLUE,ANT_IN_THE_WOODS,FLOODING_MAZE};
 
-	Color BACKGROUND_COLOR = CURRENT_THEME[0];
 	int ANT_COLOR_INDEX = 4;
 
 
@@ -107,15 +109,15 @@ public interface Constants {
 
 
 	Ant ANT1 = new Ant(FACING_UP);
-	//Ant ANT2 = new Ant(FACING_DOWN);
-	//Ant ANT3 = new Ant(FACING_UP);
-	//Ant ANT4 = new Ant(FACING_DOWN);
+	Ant ANT2 = new Ant(FACING_DOWN);
+	Ant ANT3 = new Ant(FACING_UP);
+	Ant ANT4 = new Ant(FACING_DOWN);
 
-	Ant[] ANTS = {ANT1};
+	Ant[] ANTS = {ANT1,ANT2,ANT3,ANT4};
 
 
 	GameStatus GAME_STATUS = new GameStatus();
 	Listener LISTENER = new Listener();
 	JFrame FRAME = new JFrame();
-	Renderer RENDERER = new Renderer(CURRENT_THEME);
+	Renderer RENDERER = new Renderer();
 }

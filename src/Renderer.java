@@ -6,23 +6,26 @@ import java.io.File;
 import java.io.IOException;
 
 public class Renderer extends JPanel implements Constants {
-	private Color[] theme;
 	private boolean hideGraphics = false;
 	private final RenderingHints qualityHints;
 
-	public Renderer(Color[] theme) {
-		this.theme=theme;
+	public Renderer() {
 		qualityHints = new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		qualityHints.put(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
 	}
 
 	public void paint(Graphics ga) {
+		int themeIndex = GAME_STATUS.getCurrentThemeIndex();
+		Color[] theme = THEME_LIST[themeIndex];
+
+		Color COLOR_BACKGROUND = theme[0];
+
 		Graphics2D g = (Graphics2D) ga;
 		g.setRenderingHints(qualityHints);
-		g.setColor(BACKGROUND_COLOR);
+		g.setColor(COLOR_BACKGROUND);
 		g.fillRect(0, 0, FRAME.getWidth(), FRAME.getHeight());
 
-		if(!hideGraphics) {
+		if (!hideGraphics) {
 			for (int y = 0; y < GAME_LOGIC.getHeight(); y++) {
 				for (int x = 0; x < GAME_LOGIC.getWidth(); x++) {
 					int currentCellState = GAME_LOGIC.getMatrix()[x][y];
@@ -65,13 +68,13 @@ public class Renderer extends JPanel implements Constants {
 		else {
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 30));
-			g.drawString("Display disabled.", GAME_LOGIC.getWidth()/2, GAME_LOGIC.getHeight()/2);
+			g.drawString("Display disabled. Fast forward enabled.", Constants.WIDTH * CELL_SIZE * 3 / 8, GAME_LOGIC.HEIGHT * CELL_SIZE * 3 / 8);
 		}
 	}
 
 
 	public void toggleHideGraphics() {
-		hideGraphics=!hideGraphics;
+		hideGraphics = !hideGraphics;
 	}
 
 	public void takeScreenshot() {
@@ -86,8 +89,8 @@ public class Renderer extends JPanel implements Constants {
 
 	}
 
-	public void setTheme(Color[] theme) {
-		this.theme=theme;
+	public boolean displayEnabled() {
+		return !hideGraphics;
 	}
 
 }

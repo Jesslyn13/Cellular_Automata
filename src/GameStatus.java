@@ -1,8 +1,9 @@
 import java.awt.*;
 
 public class GameStatus implements Constants {
-	public boolean isPaused = true;
-	public boolean mouseClicked = false;
+	private boolean isPaused = true;
+	private boolean mouseClicked = false;
+	private int currentThemeIndex = 0;
 
 	public int speedMultiplierIndex = SPEED_DEFAULT_INDEX;
 	private long lastSpeedChangeTime = MULTIPLIER_FADE_DELAY;
@@ -54,11 +55,24 @@ public class GameStatus implements Constants {
 		mouseY = yCoordinate;
 	}
 
+	public void cycleTheme() {
+		if(currentThemeIndex!=THEME_LIST.length-1) {
+			currentThemeIndex++;
+		}
+		else {
+			currentThemeIndex=0;
+		}
+	}
+
 	//------------------------------------------------------------------------------------------
 	//Mostly simple getters and setters go here :)
 
 	public boolean isPaused() {
 		return isPaused;
+	}
+
+	public int getCurrentThemeIndex() {
+		return currentThemeIndex;
 	}
 
 	public void setPaused(boolean paused) {

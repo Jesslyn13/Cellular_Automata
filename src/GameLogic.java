@@ -351,7 +351,6 @@ public class GameLogic implements Constants {
 	}
 
 	public void waterStep() {
-
 		final int STATE_DRY = 0;
 		final int STATE_WET = 2;
 
