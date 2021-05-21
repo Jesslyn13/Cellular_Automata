@@ -34,8 +34,10 @@ public class GameStatus implements Constants {
 		lastBrushChangeTime = System.currentTimeMillis();
 		int newBrushIndex = brushIndex;
 		newBrushIndex -= direction;
-		newBrushIndex = Math.min(newBrushIndex, maximumBrushIndex);
-		newBrushIndex = Math.max(newBrushIndex, 1);
+		if (newBrushIndex < 1) newBrushIndex = maximumBrushIndex;
+		else if (newBrushIndex > maximumBrushIndex) newBrushIndex = 1;
+		//newBrushIndex = Math.min(newBrushIndex, maximumBrushIndex);
+		//newBrushIndex = Math.max(newBrushIndex, 1);
 
 		brushIndex = newBrushIndex;
 	}
@@ -83,6 +85,7 @@ public class GameStatus implements Constants {
 	public void setBrushIndex(int brushIndex) {
 		this.brushIndex = brushIndex;
 	}
+
 	public void setMaximumBrushIndex(int maximumBrushIndex) {
 		this.maximumBrushIndex = maximumBrushIndex;
 	}
