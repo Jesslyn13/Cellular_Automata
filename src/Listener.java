@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class Listener implements Constants, MouseListener, KeyListener, MouseMotionListener,MouseWheelListener {
 
-	private final int MAX_ASCII_INDEX = 65535;
-	private final boolean[] keyPressed = new boolean[MAX_ASCII_INDEX];
+		private final HashMap<Integer,Boolean> keyPressed = new HashMap<Integer,Boolean>();
 
 	public Listener() {
 
@@ -17,12 +17,12 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keyPressed[e.getKeyCode()] = true;
+		keyPressed.put(e.getKeyCode(),true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		keyPressed[e.getKeyCode()] = false;
+		keyPressed.put(e.getKeyCode(),false);
 		switch (e.getKeyCode()) {
 			case (KeyEvent.VK_SPACE) -> GAME_STATUS.setPaused(!GAME_STATUS.isPaused());
 			case (KeyEvent.VK_R) -> {
@@ -104,7 +104,7 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(keyPressed[KeyEvent.VK_CONTROL]) {
+		if(keyPressed.get(KeyEvent.VK_CONTROL)) {
 			GAME_STATUS.changeSpeedIndex(e.getWheelRotation());
 		} else {
 			GAME_STATUS.scrollBrushIndex(e.getWheelRotation());
