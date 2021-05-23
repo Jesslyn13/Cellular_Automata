@@ -1,7 +1,10 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.HashMap;
 
 public class Listener implements Constants, MouseListener, KeyListener, MouseMotionListener,MouseWheelListener {
+
+		private final HashMap<Integer,Boolean> keyPressed = new HashMap<Integer,Boolean>();
 
 	public Listener() {
 
@@ -14,11 +17,12 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-
+		keyPressed.put(e.getKeyCode(),true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		keyPressed.put(e.getKeyCode(),false);
 		switch (e.getKeyCode()) {
 			case (KeyEvent.VK_SPACE) -> GAME_STATUS.setPaused(!GAME_STATUS.isPaused());
 			case (KeyEvent.VK_R) -> {
@@ -42,8 +46,6 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 			case (KeyEvent.VK_S) -> RENDERER.takeScreenshot();
 			case (KeyEvent.VK_D) -> RENDERER.toggleHideGraphics();
 			case (KeyEvent.VK_T) -> GAME_STATUS.cycleTheme();
-			case (KeyEvent.VK_PLUS) -> GAME_STATUS.changeSpeedIndex(-1);
-			case (KeyEvent.VK_MINUS) -> GAME_STATUS.changeSpeedIndex(+1);
 		}
 	}
 
@@ -102,6 +104,11 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		GAME_STATUS.scrollBrushIndex((int) e.getPreciseWheelRotation());
+		if(keyPressed.get(KeyEvent.VK_CONTROL)) {
+			GAME_STATUS.changeSpeedIndex(e.getWheelRotation());
+		} else {
+			GAME_STATUS.scrollBrushIndex(e.getWheelRotation());
+		}
+
 	}
 }
