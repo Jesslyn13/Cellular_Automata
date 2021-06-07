@@ -300,7 +300,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 	}
 
 	public int getArrayIndexByChanceArray(double[] chances) {
-		//this array of chances does not need to equal out to 1 in total but it helps to understand the probabilities if you do
+		//this array of chances does not need to equal out to 1 in total but it helps to understand the probabilities if it does
 
 		Random rng = new Random();
 		double total = Arrays.stream(chances).sum();
@@ -387,15 +387,15 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 		final int STATE_DRY = 0;
 		final int STATE_WET = 2;
 
-		int[][] wetNeighboursArray = getNeumannNeighbours(STATE_WET);
+		int[][] wetNeighbours = getNeumannNeighbours(STATE_WET);
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 
 				int cellState = matrix[x][y];
-				int wetNeighbours = wetNeighboursArray[x][y];
+				int wetNeighbourCount = wetNeighbours[x][y];
 
-				if (cellState == STATE_DRY && wetNeighbours >= 1) {
+				if (cellState == STATE_DRY && wetNeighbourCount >= 1) {
 					cellState = STATE_WET;
 				}
 
@@ -409,14 +409,14 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 		final int STATE_ALIVE = 1;
 		final int STATE_DYING = 2;
 
-		int[][] neighboursStateOne = getMooreNeighbours(1);
+		int[][] aliveNeighbours = getMooreNeighbours(1);
 
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 
 				int cellState = matrix[x][y];
-				int cellNeighbours = neighboursStateOne[x][y];
+				int aliveNeighbourCount = aliveNeighbours[x][y];
 
 				int state = 0;
 				//Brian's Brain
@@ -425,7 +425,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 						state = STATE_DYING;
 					}
 					case STATE_DEAD -> {
-						if (cellNeighbours == 2) {
+						if (aliveNeighbourCount == 2) {
 							state = STATE_ALIVE;
 						}
 					}

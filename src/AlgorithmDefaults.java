@@ -8,14 +8,14 @@ public interface AlgorithmDefaults {
 	int LANGTONS_ANT = 3;
 	int FLOOD = 4;
 
-	int AUTOMATON_CHOICE = FLOOD;
+	int AUTOMATON_CHOICE = BRIANS_BRAIN;
 
 
 	//Game of Life ------------------------------------------------------------------------------------------------------
 
 	int MAXIMUM_CELL_INDEX_GAME_OF_LIFE = 1;
 	int DEFAULT_THEME_INDEX_GAME_OF_LIFE = 0;
-	double[] LIVE_CELL_CHANCES_CONWAY = {0.7, 0.3};
+	double[] LIVE_CELL_CHANCES_CONWAY = {0.1, 0.9};
 
 
 	//Seeds ------------------------------------------------------------------------------------------------------
@@ -29,7 +29,7 @@ public interface AlgorithmDefaults {
 
 	int MAXIMUM_CELL_INDEX_BRIANS_BRAIN = 2;
 	int DEFAULT_THEME_INDEX_BRIANS_BRAIN = 1;
-	double[] LIVE_CELL_CHANCES_BRIANS_BRAIN = {0.1, 0.9};
+	double[] LIVE_CELL_CHANCES_BRIANS_BRAIN = {0.5, 0.5};
 
 
 	//Langton's Ant ------------------------------------------------------------------------------------------------------
@@ -43,5 +43,6 @@ public interface AlgorithmDefaults {
 	int MAXIMUM_CELL_INDEX_FLOOD = 2;
 	int DEFAULT_THEME_INDEX_FLOOD = 3;
 	double[] LIVE_CELL_CHANCES_FLOOD = {0.3, 0.7};
+
 
 }

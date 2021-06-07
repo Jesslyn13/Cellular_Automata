@@ -22,10 +22,10 @@ public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 
 		Graphics2D g = (Graphics2D) ga;
 		g.setRenderingHints(qualityHints);
-		g.setColor(COLOR_BACKGROUND);
-		g.fillRect(0, 0, FRAME.getWidth(), FRAME.getHeight());
 
 		if (!hideGraphics) {
+			g.setColor(COLOR_BACKGROUND);
+			g.fillRect(0, 0, FRAME.getWidth(), FRAME.getHeight());
 			for (int y = 0; y < GAME_LOGIC.getHeight(); y++) {
 				for (int x = 0; x < GAME_LOGIC.getWidth(); x++) {
 					int currentCellState = GAME_LOGIC.getMatrix()[x][y];
@@ -35,6 +35,7 @@ public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 					}
 				}
 			}
+
 			//drawing the ant
 			if (AUTOMATON_CHOICE == LANGTONS_ANT) {
 				for (Ant a : ANTS) {
@@ -42,7 +43,6 @@ public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 					g.fillRect(a.getX() * CELL_SIZE, a.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
 				}
 			}
-
 
 			//drawing the pause button
 			if (GAME_STATUS.isPaused()) {
@@ -63,22 +63,19 @@ public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 					g.drawString(multiplier + "x", 20, 40);
 				}
 			}
-
 			if(GAME_STATUS.getTimeSinceLastBrushChange() < BRUSH_FADE_DELAY) {
 				g.setColor(theme[GAME_STATUS.getBrushIndex()]);
 				g.fillRect(Constants.WIDTH/2*CELL_SIZE, 20, 20, 20);
 			}
-
-
-
 		}
 		else {
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, FRAME.getWidth(), FRAME.getHeight());
 			g.setColor(Color.BLACK);
 			g.setFont(new Font("Arial", Font.BOLD, 30));
 			g.drawString("Display disabled. Fast forward enabled.", Constants.WIDTH * CELL_SIZE * 3 / 8, GAME_LOGIC.HEIGHT * CELL_SIZE * 3 / 8);
 		}
 	}
-
 
 	public void toggleHideGraphics() {
 		hideGraphics = !hideGraphics;
@@ -93,7 +90,6 @@ public class Renderer extends JPanel implements Constants,AlgorithmDefaults {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	public boolean displayEnabled() {

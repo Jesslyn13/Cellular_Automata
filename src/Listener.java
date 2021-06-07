@@ -2,12 +2,33 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.util.HashMap;
 
-public class Listener implements Constants, MouseListener, KeyListener, MouseMotionListener,MouseWheelListener {
+public class Listener implements Constants, MouseListener, KeyListener, MouseMotionListener, MouseWheelListener {
 
-		private final HashMap<Integer,Boolean> keyPressed = new HashMap<Integer,Boolean>();
+	private final HashMap<Integer, Boolean> keysPressed = new HashMap<>();
 
-	public Listener() {
+	public boolean keyPressed(int keyValue) {
+		return keysPressed.get(keyValue) != null && keysPressed.get(keyValue);
+	}
 
+	public void useBrush(MouseEvent e) {
+		GAME_STATUS.updateMousePosition(e.getX(), e.getY());
+
+		if (SwingUtilities.isRightMouseButton(e)) {
+			GAME_LOGIC.eraseTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
+		}
+		else {
+			GAME_LOGIC.paintTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
+		}
+	}
+
+	public void pauseAndWaitForTenMs() {
+		GAME_STATUS.setPaused(true);
+		try {
+			Thread.sleep(10);
+		}
+		catch (InterruptedException interruptedException) {
+			interruptedException.printStackTrace();
+		}
 	}
 
 	@Override
@@ -17,32 +38,23 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		keyPressed.put(e.getKeyCode(),true);
+		keysPressed.put(e.getKeyCode(), true);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		keyPressed.put(e.getKeyCode(),false);
+		keysPressed.put(e.getKeyCode(), false);
+
 		switch (e.getKeyCode()) {
-			case (KeyEvent.VK_SPACE) -> GAME_STATUS.setPaused(!GAME_STATUS.isPaused());
 			case (KeyEvent.VK_R) -> {
-				GAME_STATUS.setPaused(true);
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
-				}
+				pauseAndWaitForTenMs();
 				GAME_LOGIC.resetMatrix();
 			}
 			case (KeyEvent.VK_N) -> {
-				GAME_STATUS.setPaused(true);
-				try {
-					Thread.sleep(10);
-				} catch (InterruptedException interruptedException) {
-					interruptedException.printStackTrace();
-				}
+				pauseAndWaitForTenMs();
 				GAME_LOGIC.generateRandomMatrix();
 			}
+			case (KeyEvent.VK_SPACE) -> GAME_STATUS.setPaused(!GAME_STATUS.isPaused());
 			case (KeyEvent.VK_S) -> RENDERER.takeScreenshot();
 			case (KeyEvent.VK_D) -> RENDERER.toggleHideGraphics();
 			case (KeyEvent.VK_T) -> GAME_STATUS.cycleTheme();
@@ -55,22 +67,11 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		GAME_STATUS.updateMousePosition(e.getX(),e.getY());
-		boolean isAlive = !SwingUtilities.isRightMouseButton(e);
-
-		//GAME_LOGIC.setTile(GAME_STATUS.mouseX,GAME_STATUS.mouseY, isAlive);
-		if(isAlive) {
-			GAME_LOGIC.paintTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY());
-		}
-		else {
-			GAME_LOGIC.eraseTile(GAME_STATUS.getMouseX(),GAME_STATUS.getMouseY());
-		}
+		useBrush(e);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		GAME_STATUS.updateMousePosition(0,0);
-		//the mouse position is not updated because it's not necessary to know the mouse position until a mouse button is pressed again
 
 	}
 
@@ -86,15 +87,7 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		GAME_STATUS.updateMousePosition(e.getX(), e.getY());
-		boolean isAlive = !SwingUtilities.isRightMouseButton(e);
-
-		if (isAlive) {
-			GAME_LOGIC.paintTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
-		}
-		else {
-			GAME_LOGIC.eraseTile(GAME_STATUS.getMouseX(), GAME_STATUS.getMouseY());
-		}
+		useBrush(e);
 	}
 
 	@Override
@@ -104,9 +97,10 @@ public class Listener implements Constants, MouseListener, KeyListener, MouseMot
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		if(keyPressed.get(KeyEvent.VK_CONTROL)) {
+		if (keyPressed(KeyEvent.VK_CONTROL)) {
 			GAME_STATUS.changeSpeedIndex(e.getWheelRotation());
-		} else {
+		}
+		else {
 			GAME_STATUS.scrollBrushIndex(e.getWheelRotation());
 		}
 
