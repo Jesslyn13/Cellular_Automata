@@ -13,10 +13,10 @@ public interface Constants{
 
 	//Resolution and Size--------------------------------------------------------------------------------
 
-	int CELL_SIZE = 8;
-	boolean SCREEN_WRAP = false;
-	boolean MIRROR_MATRIX_VERTICAL = true;
-	boolean MIRROR_MATRIX_HORIZONTAL = true;
+	int CELL_SIZE = 4;
+	boolean SCREEN_WRAP = true;
+	boolean MIRROR_MATRIX_VERTICAL = false;
+	boolean MIRROR_MATRIX_HORIZONTAL = false;
 
 	int RESOLUTION_X = 1000;
 	int RESOLUTION_Y = 800;
@@ -108,11 +108,8 @@ public interface Constants{
 
 
 	Ant ANT1 = new Ant(FACING_UP);
-	Ant ANT2 = new Ant(FACING_DOWN);
-	Ant ANT3 = new Ant(FACING_UP);
-	Ant ANT4 = new Ant(FACING_DOWN);
 
-	Ant[] ANTS = {ANT1,ANT2,ANT3,ANT4};
+	Ant[] ANTS = {ANT1};
 
 
 	GameStatus GAME_STATUS = new GameStatus();
