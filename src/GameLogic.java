@@ -17,35 +17,12 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 		matrix = new int[width][height];
 		resetMatrix();
 
-		switch(AUTOMATON_CHOICE) {
-			case CONWAYS_GAME_OF_LIFE -> {
-				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_GAME_OF_LIFE);
-				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_GAME_OF_LIFE);
-				liveCellChances = LIVE_CELL_CHANCES_CONWAY;
-			}
-			case SEEDS -> {
-				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_SEEDS);
-				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_SEEDS);
-				liveCellChances = LIVE_CELL_CHANCES_SEEDS;
-			}
-			case BRIANS_BRAIN -> {
-				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_BRIANS_BRAIN);
-				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_BRIANS_BRAIN);
-				liveCellChances = LIVE_CELL_CHANCES_BRIANS_BRAIN;
-			}
-			case LANGTONS_ANT -> {
-				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_LANGTONS_ANT);
-				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_LANGTONS_ANT);
-				liveCellChances = LIVE_CELL_CHANCES_LANGTONS_ANT;
-			}
-			case FLOOD -> {
-				GAME_STATUS.setMaximumBrushIndex(MAXIMUM_CELL_INDEX_FLOOD);
-				GAME_STATUS.setCurrentThemeIndex(DEFAULT_THEME_INDEX_FLOOD);
-				liveCellChances = LIVE_CELL_CHANCES_FLOOD;
-			}
-		}
 
+		AlgorithmSettings myAlgorithm = AlgorithmList.get(AUTOMATON_CHOICE);
 
+		GAME_STATUS.setMaximumBrushIndex(myAlgorithm.getMaximumCellIndex());
+		GAME_STATUS.setCurrentThemeIndex(myAlgorithm.getDefaultThemeIndex());
+		liveCellChances = myAlgorithm.getLiveCellChances();
 	}
 
 	public void resetMatrix() {
@@ -318,7 +295,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 
 	public void nextStep() {
 		switch (AUTOMATON_CHOICE) {
-			case CONWAYS_GAME_OF_LIFE -> conwayStep();
+			case GAME_OF_LIFE -> conwayStep();
 			case SEEDS -> seedsStep();
 			case BRIANS_BRAIN -> briansBrainStep();
 			case LANGTONS_ANT -> langtonsAntStep();

@@ -13,13 +13,13 @@ public interface Constants{
 
 	//Resolution and Size--------------------------------------------------------------------------------
 
-	int CELL_SIZE = 5;
+	int CELL_SIZE = 8;
 	boolean SCREEN_WRAP = false;
 	boolean MIRROR_MATRIX_VERTICAL = true;
 	boolean MIRROR_MATRIX_HORIZONTAL = true;
 
-	int RESOLUTION_X = 1280;
-	int RESOLUTION_Y = 1280;
+	int RESOLUTION_X = 1000;
+	int RESOLUTION_Y = 800;
 
 	int WIDTH = RESOLUTION_X / CELL_SIZE;
 	int HEIGHT = RESOLUTION_Y / CELL_SIZE;
