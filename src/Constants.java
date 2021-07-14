@@ -3,23 +3,19 @@ import java.awt.*;
 
 public interface Constants{
 
-	//-------------------------------------------------------------------------------------------------
-	//Algorithm Choice:--------------------------------------------------------------------------------
-	//-------------------------------------------------------------------------------------------------
-
 
 	boolean ANT_RETURNS_HOME = true;
 
 
 	//Resolution and Size--------------------------------------------------------------------------------
 
-	int CELL_SIZE = 4;
+	int CELL_SIZE = 1;
 	boolean SCREEN_WRAP = true;
-	boolean MIRROR_MATRIX_VERTICAL = false;
-	boolean MIRROR_MATRIX_HORIZONTAL = false;
+	boolean MIRROR_MATRIX_VERTICAL = true;
+	boolean MIRROR_MATRIX_HORIZONTAL = true;
 
-	int RESOLUTION_X = 1000;
-	int RESOLUTION_Y = 800;
+	int RESOLUTION_X = 1200;
+	int RESOLUTION_Y = 850;
 
 	int WIDTH = RESOLUTION_X / CELL_SIZE;
 	int HEIGHT = RESOLUTION_Y / CELL_SIZE;
@@ -43,15 +39,6 @@ public interface Constants{
 
 	///Cell States and Colours--------------------------------------------------------------------------------------
 
-
-	Color[] PRESET_NIGHT_BLUE = {
-			Color.black,
-			Color.blue,
-			Color.cyan,
-			Color.green,
-			Color.green,
-	};
-
 	Color[] PRESET_DEFAULT_BLACK_WHITE = {
 			Color.white,
 			Color.black,
@@ -60,12 +47,12 @@ public interface Constants{
 			Color.blue.darker(),
 	};
 
-	Color[] ANT_IN_THE_WOODS = {
-			Color.green.darker().darker().darker().darker().darker(),
-			Color.orange.darker().darker(),
-			Color.orange.darker().darker().darker(),
-			Color.orange.darker().darker().darker().darker(),
+	Color[] PRESET_NIGHT_BLUE = {
 			Color.black,
+			Color.blue,
+			Color.cyan,
+			Color.green,
+			Color.green,
 	};
 
 	Color[] FLOODING_MAZE = {
@@ -78,7 +65,7 @@ public interface Constants{
 
 	Color[] OKSANAS_GREEN = {
 			Color.black,
-			Color.green,
+			Color.green.darker(),
 			Color.blue.darker(),
 			Color.green,
 			Color.green,
@@ -87,7 +74,6 @@ public interface Constants{
 	Color[][] THEME_LIST = {
 			PRESET_DEFAULT_BLACK_WHITE,
 			PRESET_NIGHT_BLUE,
-			ANT_IN_THE_WOODS,
 			FLOODING_MAZE,
 			OKSANAS_GREEN
 	};

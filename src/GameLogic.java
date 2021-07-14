@@ -6,7 +6,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
     private final int width;
     private final int height;
 
-    private double[] liveCellChances = {0.3, 0.3, 0.3};
+    private final double[] liveCellChances;
 
 
     public GameLogic(int width, int height) {
@@ -17,7 +17,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
         resetMatrix();
 
 
-        AlgorithmSettings myAlgorithm = AlgorithmList.get(AUTOMATON_CHOICE);
+        AlgorithmSettings myAlgorithm = ALGORITHM_LIST_AS_MAP.get(AUTOMATON_CHOICE);
 
         GAME_STATUS.setMaximumBrushIndex(myAlgorithm.getMaximumCellIndex());
         GAME_STATUS.setCurrentThemeIndex(myAlgorithm.getDefaultThemeIndex());
@@ -283,6 +283,7 @@ public class GameLogic implements Constants, AlgorithmDefaults {
             case BRIANS_BRAIN -> briansBrainStep();
             case LANGTONS_ANT -> langtonsAntStep();
             case FLOOD -> waterStep();
+            case CRYSTAL -> crystalStep();
         }
     }
 
@@ -291,7 +292,10 @@ public class GameLogic implements Constants, AlgorithmDefaults {
 
     public void conwayStep() {
 
-        int[][] neighbours = getMooreNeighbours(1);
+        final int STATE_DEAD = 0;
+        final int STATE_ALIVE = 1;
+
+        int[][] neighbours = getMooreNeighbours(STATE_ALIVE);
 
         for (int x = 0; x < width; x++) {
             for (int y = 0; y < height; y++) {
@@ -300,11 +304,34 @@ public class GameLogic implements Constants, AlgorithmDefaults {
                 int cellNeighbours = neighbours[x][y];
 
 
-                boolean cellLives = (cellNeighbours >= 2 && cellNeighbours < 4) && cellState == 1
-                        || cellNeighbours == 3 && cellState == 0;
+                boolean cellLives =     cellState == STATE_ALIVE && (cellNeighbours >= 2 && cellNeighbours < 4)
+                                     || cellState == STATE_DEAD && cellNeighbours == 3;
 
-                if (cellLives) matrix[x][y] = 1;
-                else matrix[x][y] = 0;
+                if (cellLives) matrix[x][y] = STATE_ALIVE;
+                else matrix[x][y] = STATE_DEAD;
+            }
+        }
+    }
+
+    public void crystalStep() {
+
+        final int STATE_DEAD = 0;
+        final int STATE_ALIVE = 1;
+
+        int[][] neighbours = getMooreNeighbours(STATE_ALIVE);
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+
+                int cellState = matrix[x][y];
+                int cellNeighbours = neighbours[x][y];
+
+
+                boolean cellLives = cellState == STATE_ALIVE && (cellNeighbours >= 2 && cellNeighbours < 7) ||
+                                    cellState == STATE_DEAD && cellNeighbours == 3;
+
+                if (cellLives) matrix[x][y] = STATE_ALIVE;
+                else matrix[x][y] = STATE_DEAD;
             }
         }
     }
